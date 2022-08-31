@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name="viewport"
+        content="width=device-width,height=device-height,initial-scale=1,user-scalable=no,shrink-to-fit=no">
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>CALCULATOR</title>
+    <link rel='icon' href="c.jpg" />
+
+    <style>
+        body,
+        html 
+        {
+            display: flex;
+            justify-content: center;
+            color: black;
+        }
+        button:hover
+        {
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+        }
+        .prem {
+            background-color: #1eba71;
+            font-weight: bold;
+            color: #ecf0f1;
+        }
+        .swetha
+        {
+            background-color: #c8bcf5;
+            font-weight: bold;
+            color: black;
+        }
+
+        .suryam {
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 499;
+            margin-bottom: 0;
+        }
+        input 
+        {
+            background-color: white;
+            color: black;
+            outline: none;
+            text-align: right;
+            border-radius: 15px;
+            font-size: 3rem;
+            width: 78vw;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1.5rem;
+            position: relative;
+            left: 10px;
+
+        }
+        table
+        {
+            margin: auto;
+        }
+        button 
+        {
+            border: 2px solid #f3904f;
+            background-color: white;
+            width: 20vw;
+            height: 10vh;
+            padding: 0.5rem 0;
+            margin: 0.25vmax;
+            font-size: 2rem;
+            border-radius: 15px;
+            -moz-transition: all ease 0.5s;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            -o-transition: all ease 0.5s;
+            color: white;
+        }
+        a 
+        {
+            outline: none;
+            -moz-transition: all ease 0.5s;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            -o-transition: all ease 0.5s;
+        }
+        a:hover
+        {
+            text-shadow: 0px 0px 10px #f3904f;
+            -moz-transition: all ease 0.5s;
+            -webkit-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            -o-transition: all ease 0.5s;
+        }
+        .r 
+        {
+            background: linear-gradient(to right, #f3904f, #3b4371);
+            height: 597px;
+            width: 1270px;
+        }
+        button 
+        {
+            background-color: #3b4371;
+        }
+
+        @media (orientation: landscape) and (max-height: 500px) {
+            body {
+                padding: 0;
+                text-align: center;
+                left: 0px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body background="Dawn.jpg">
+    <div>
+        <input type="text" placeholder="calculator" name="screen" id="answer" readonly>
+        <table>
+            <tr>
+                <td><button>(</button></td>
+                <td><button>)</button></td>
+                <td><button class="prem">C</button></td>
+                <td><button>%</button></td>
+            </tr>
+            <tr>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+                <td><button>+</button></td>
+            </tr>
+            <tr>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+                <td><button>-</button></td>
+            </tr>
+            <tr>
+                <td><button>7</button></td>
+                <td><button>8</button></td>
+                <td><button>9</button></td>
+                <td><button>X</button></td>
+            </tr>
+            <tr>
+                <td><button>0</button></td>
+                <td><button class="suryam">.</button></td>
+                <td><button>/</button></td>
+                <td><button class="swetha">=</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+<script>
+    console.log(
+        "Calculator bhayya done by Prempk  https://github.com/Prempk29"
+    );
+
+    document.getElementById("answer").readOnly = true;
+    let screen = document.getElementById("answer");
+    buttons = document.querySelectorAll("button");
+    let screenValue = "";
+    for (item of buttons) {
+        item.addEventListener("click", (e) => {
+            buttonText = e.target.innerText;
+            if (buttonText == "X") {
+                buttonText = "*";
+                screenValue += buttonText;
+                screen.value = screenValue;
+            } else if (buttonText == "C") {
+                screenValue = "";
+                screen.value = screenValue;
+            } else if (buttonText == "=") {
+                checkForBracketMulti();
+            } else {
+                screenValue += buttonText;
+                screen.value = screenValue;
+            }
+        });
+    }
+
+    document.addEventListener("keydown", function (event) {
+        console.log(event.which);
+        if (event.shiftKey == 57) {
+            event.key = "(";
+        } else if (event.shiftKey == 48) {
+            event.key = ")";
+        } else if (event.shiftKey == 53) {
+            event.key = "%";
+        }
+        if (event.keyCode == 88) {
+            screenValue += "*";
+            screen.value = screenValue;
+        }
+        if (
+            event.key <= 9 || event.key == "+" || event.key == "-" || event.key == "*" || event.key == "." || event.key == "/" || event.key == "%" || event.key == "(" ||
+            event.key == ")"
+        ) {
+            screenValue += event.key;
+            screen.value = screenValue;
+        }
+        if (event.keyCode == 13 || event.keyCode == 187) {
+            checkForBracketMulti();
+        } else if (event.keyCode == 46) {
+            screenValue = "";
+            screen.value = screenValue;
+            console.clear();
+        } else if (event.keyCode == 8) {
+            screenValue = screenValue.slice(0, -1);
+            screen.value = screenValue;
+        } else if (event.keyCode == 67) {
+            screenValue = "";
+            screen.value = screenValue;
+            console.clear();
+        } else if (event.keyCode == 82) {
+            location.reload();
+        }
+    });
+
+    window.onerror = function () {
+        alert("CALCULATOR BHAYYA NEED VALID EXPRESSION BHAYYA");
+        screenValue = "";
+        screen.value = screenValue;
+        console.clear();
+    };
+
+    window.onBracketMultiplication = function () {
+        screenValue = addStr(screen.value, screen.value.indexOf("("), "*");
+        screen.value = eval(screenValue);
+    };
+
+    function addStr(str, index, stringToAdd) {
+        return (
+            str.substring(0, index) + stringToAdd + str.substring(index, str.length)
+        );
+    }
+
+    function checkForBracketMulti() {
+        if (
+            screen.value.includes("(") &&
+            !isNaN(screen.value.charAt(screen.value.indexOf("(") - 1))
+        ) {
+            window.onBracketMultiplication();
+            return;
+        } else {
+            screen.value = eval(screenValue);
+        }
+    }
+</script>
+</body>
+
+</html>
